@@ -1,25 +1,30 @@
 import React from 'react';
 import Header from './header';
 import TodoList from './todo-list';
+import {connect} from 'react-redux';
+import {deleteTodo, addTodo, fetchTodos} from './actions';
+import {createSelector} from 'reselect';
 
 class Todos extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            todos: ["Todo #1", "Todo #2", "Todo #3"]
-        };
+
+    componentDidMount() {
+        this.props.dispatch(fetchTodos());
     }
 
     handleDeleteTodo(todo) {
-        this.setState({todos: this.state.todos.filter(t => t !== todo)});
+        this.props.dispatch(deleteTodo(todo));
+    }
+
+    handleAddTodo(todo) {
+        this.props.dispatch(addTodo(todo));
     }
 
     render() {
         return <div>
-            <Header />
-            <TodoList todos={this.state.todos} onDeleteTodo={(todo) => this.handleDeleteTodo(todo)}/>
+            <Header onAddTodo={(todo) => this.handleAddTodo(todo)}/>
+            {this.props.children}
         </div>
     }
 }
 
-export default Todos;
+export default connect(createSelector(x => x, x=> x))(Todos);

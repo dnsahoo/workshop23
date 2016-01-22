@@ -21,12 +21,12 @@ app.use(require('webpack-hot-middleware')(compiler));
 var todos = [
   {
     id: 1,
-    title: 'Learn React.js',
+    todo: 'Learn React.js',
     description: 'Learn React.js, Redux, React Router etc.'
   },
   {
     id: 2,
-    title: 'Build Apps',
+    todo: 'Build Apps',
     description: 'Build Frontend, backend etc.'
   }
 ];
@@ -40,7 +40,7 @@ app.get('/todos/:id', function (req, res) {
 app.post('/todos', function(req, res) {
   var allIds = todos.map(function(todo) { return todo.id});
   var nextId = Math.max.apply(Math, allIds) + 1;
-  var todo = {id: nextId, title: req.body.title, description: req.body.description};
+  var todo = {id: nextId, todo: req.body.todo, description: req.body.description};
   todos.push(todo);
   res.send(todo);
 });
