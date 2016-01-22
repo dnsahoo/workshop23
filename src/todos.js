@@ -3,7 +3,6 @@ import Header from './header';
 import TodoList from './todo-list';
 import {connect} from 'react-redux';
 import {deleteTodo, addTodo, fetchTodos} from './actions';
-import {createSelector} from 'reselect';
 
 class Todos extends React.Component {
 
@@ -27,4 +26,4 @@ class Todos extends React.Component {
     }
 }
 
-export default connect(createSelector(x => x, x=> x))(Todos);
+export default connect(x => x)(Todos);
