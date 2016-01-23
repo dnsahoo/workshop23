@@ -1,29 +1,20 @@
 import React from 'react';
 import Header from './header';
 import TodoList from './todo-list';
+import {connect} from 'react-redux';
+import {deleteTodo} from './actions';
 
 class Todos extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            todos: [
-                {id: 1, todo: 'Learn React.js'},
-                {id: 2, todo: 'Build React Applications'}
-            ]
-        };
-    }
     handleDeleteTodo(todo) {
-        this.setState({
-            todos: this.state.todos.filter(t => t !== todo)
-        });
+        this.props.dispatch(deleteTodo(todo));
     }
     render() {
         return <div>
             <Header />
-            <TodoList todos={this.state.todos}
+            <TodoList todos={this.props.todos}
                       onDeleteTodo={(todo) => this.handleDeleteTodo(todo)}/>
         </div>;
     }
 }
 
-export default Todos;
+export default connect(state => state)(Todos);
